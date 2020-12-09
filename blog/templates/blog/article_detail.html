@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="card mb-3">
+    <h2 class="card-header bg-dark text-white">{{ article.title }}</h2>
+    <div class="card-body">
+        {% if article.image.thumbnail %}
+        <img class="img-thumbnail" src="{{ article.image.thumbnail.url }}" alt="{{ article.title }}">
+        {% endif %}
+        <p>{{ article.created_date }} / カテゴリ：{{ article.category_id }}</p>
+        {{ article.text | linebreaksbr | urlize }}
+    </div>
+</div>
+
+{% for comment in article.comment_set.all %}
+<ol>
+    <li>
+        <p class="">
+            <b>{{ comment.name }}</b> / {{ comment.created_date }}<br>
+            {{ comment.text | linebreaksbr }}
+        </p>
+    </li>
+</ol>
+{% endfor %}
+
+<a class="btn btn-dark" href="{% url 'blog:comment' article.pk %}">コメント投稿ページへ</a>
+{% endblock %}

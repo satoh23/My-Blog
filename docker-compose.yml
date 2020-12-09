@@ -1,0 +1,39 @@
+version: '3'
+services: 
+    web:
+        container_name: my_blog_web
+        build: .
+        volumes: 
+            - .:/my_blog/
+        ports: 
+            - "13500:8000"
+        command: ["./wait-for-db.sh", "db:43334", "python manage.py runserver 0.0.0.0:8000"]
+        depends_on: 
+            - db
+    db:
+        container_name: my_blog_db
+        image: mysql:8.0
+        ports: 
+            - '43334:3306'
+        volumes: 
+            - mysqldata:/var/lib/mysql
+            - ./db_cnf:/etc/mysql/conf.d
+        restart: always
+        environment: 
+            MYSQL_DATABASE: 'my_blog_db'
+            MYSQL_ROOT_PASSWORD: 'Mysql1001'
+            MYSQL_PASSWORD: 'Mysql1001'
+            MYSQL_USER: 'root'
+            MYSQL_ALLOW_EMPTY_PASSWORD: ‘yes’
+            TZ: 'Asia/Tokyo'
+        depends_on: 
+            - cache
+    cache:
+        image: memcached
+        ports:
+          - "11211:11211"
+        entrypoint:
+         - memcached
+         - -m 64
+volumes:
+    mysqldata:
