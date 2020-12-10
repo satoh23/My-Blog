@@ -4,7 +4,7 @@ django-widget-tweaks == 1.4.8
 django-allauth >= 0.44.0
 django-cleanup == 5.1.0
 python-memcached >= 1.59
-django-stdimage
+django-imagekit
 Pillow
 mysqlclient == 1.4.6
 freeze

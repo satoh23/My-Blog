@@ -1,11 +1,14 @@
 {% extends 'blog/base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="card mb-3">
     <h2 class="card-header bg-dark text-white">{{ article.title }}</h2>
     <div class="card-body">
-        {% if article.image.thumbnail %}
-        <img class="img-thumbnail" src="{{ article.image.thumbnail.url }}" alt="{{ article.title }}">
+        {% if article.thumbnail %}
+        <img class="img-thumbnail" src="{{ article.thumbnail.url }}" alt="{{ article.title }}">
+        {% else %}
+        <img class="img-thumbnail" src="{% static 'no_image/no_image_yoko.jpg' %}" alt="{{ article.title }}">
         {% endif %}
         <p>{{ article.created_date }} / カテゴリ：{{ article.category_id }}</p>
         {{ article.text | linebreaksbr | urlize }}

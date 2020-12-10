@@ -12,4 +12,4 @@ class ArticleCreateForm(forms.ModelForm):
 
     class Meta:
         model = article.Article
-        fields = ('title', 'text', 'image', 'category_id')
+        fields = ('title', 'text', 'thumbnail', 'category_id')

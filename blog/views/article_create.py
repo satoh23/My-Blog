@@ -16,6 +16,6 @@ class Article_create(UserPassesTestMixin, generic.CreateView):
         return self.request.user.is_superuser
 
     def form_valid(self, form):
-        article = form.save(commit=False)
-        article.save()
+        article_data = form.save(commit=False)
+        article_data.save()
         return redirect('blog:home')
