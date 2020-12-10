@@ -10,9 +10,7 @@ class Article(models.Model):
 
     title = models.CharField('タイトル', max_length=100)
     text = models.TextField('本文')
-    image = StdImageField(upload_to='thumbnails/', null=True, blank=True, variations={'home_media': (500, 333),
-                                                                                      'thumbnail': (600, 400),
-                                                                                      'header': (800, 400)})
+    image = StdImageField(upload_to='thumbnails/', null=True, blank=True, variations={'thumbnail': (500, 333)})
     created_date = models.DateTimeField('作成日', auto_now_add=True)
     category_id = models.ForeignKey(
         Category, verbose_name='カテゴリ', on_delete=models.PROTECT)
